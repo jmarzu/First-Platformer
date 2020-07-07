@@ -41,7 +41,7 @@ function renderplayer(){
 
 // Function to create platforms
 function createplat(){
-    for(i = 0; i < numberOfPlatforms; i++) {
+    for(let i = 0; i < numberOfPlatforms; i++) {
         platforms.push({
             x: 100 * i,
             y: 200 + (30 * i),
@@ -104,6 +104,7 @@ function loop() {
     if (keys.left) {
         player.x_v = -2.5;
     }
+
     if (keys.right) {
         player.x_v = 2.5;
     }
@@ -135,7 +136,7 @@ function loop() {
 
 canvas = document.getElementById("canvas");
 ctx = canvas.getContext("2d");
-ctx.canvas.height = 1000;
+ctx.canvas.height = 500;
 ctx.canvas.width = 1000;
 createplat();
 
