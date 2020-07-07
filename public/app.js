@@ -40,7 +40,7 @@ function renderplayer(){
 
 // Function to create platforms
 function createplat(){
-    for(let i = 0; i < numberOfPlatforms; i++) {
+    for (let i = 0; i < numberOfPlatforms; i++) {
         platforms.push({
             x: 100 * i,
             y: 200 + (30 * i),
@@ -58,39 +58,42 @@ function renderplat(){
 // This function will be called when a key on the keyboard is pressed
 function keydown(e) {
     // 37 is the code for the left arrow key
-    if(e.keyCode == 37) {
+    if (e.keyCode === 37) {
         keys.left = true;
     }
+
     // 37 is the code for the up arrow key
-    if(e.keyCode == 38) {
-        if(player.jump == false) {
+    if (e.keyCode === 38) {
+        if (player.jump === false) {
             player.y_v = -10;
         }
     }
     // 39 is the code for the right arrow key
-    if(e.keyCode == 39) {
+    if (e.keyCode === 39) {
         keys.right = true;
     }
 }
 
 // This function is called when the pressed key is released
 function keyup(e) {
-    if(e.keyCode == 37) {
+    if (e.keyCode === 37) {
         keys.left = false;
     }
-    if(e.keyCode == 38) {
-        if(player.y_v < -2) {
-        player.y_v = -3;
+
+    if (e.keyCode === 38) {
+        if (player.y_v < -2) {
+            player.y_v = -3;
         }
     }
-    if(e.keyCode == 39) {
+
+    if (e.keyCode === 39) {
         keys.right = false;
     }
 } 
 
 function loop() {
-    // If the player is not jumping apply the effect of frictiom
-    if (player.jump == false) {
+    // If the player is not jumping apply the effect of friction
+    if (player.jump === false) {
         player.x_v *= friction;
     } else {
         // If the player is in the air then apply the effect of gravity
@@ -142,4 +145,7 @@ createplat();
 // Adding the event listeners
 document.addEventListener("keydown",keydown);
 document.addEventListener("keyup",keyup);
-setInterval(loop,22);
+
+
+// Run loop() continuously to update the board/game
+setInterval(loop, 22);
