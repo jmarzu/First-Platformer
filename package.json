@@ -1,0 +1,22 @@
+{
+  "name": "firstplatformer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "watchify public/app.js -o public/bundle.js",
+    "build": "browserify public/app.js -o public/bundle.js",
+    "start": "npm run watch & nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.0",
+    "browserify": "^16.5.1",
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "path": "^0.12.7",
+    "watchify": "^3.11.1"
+  }
+}
