@@ -47,16 +47,26 @@ function renderPlayer(){
 function createPlatforms(){
     for (let i = 1; i < numberOfPlatforms; i++) {
         platforms.push({
-            x: alternatingPlatforms(i),
-            y: alternatingPlatforms(i),
+            x: alternatingPlatforms(),
+            y: alternatingPlatforms(),
             width: 100,
             height: 20
         });
     }
 }
 
-function alternatingPlatforms(i) {
-    return (Math.random() * 1000) + 1;
+function alternatingPlatforms() {
+    // if the platform position for the x axis is > 50 then add 50 so the 
+    // player piece can fall to the default position
+    let randomPosition = (Math.random() * 1000) + 1;
+
+    if (randomPosition > 50) {
+        randomPosition + 50; 
+    } else {
+        randomPosition + 1;
+    }
+
+    return randomPosition
 }
 
 function renderPlatforms(){
