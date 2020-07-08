@@ -1,7 +1,9 @@
 // The attributes of the player.
 let player = {
-    x: 100,
-    y: 100,
+    // x coordinate for starting position of block game piece
+    x: 30,
+    // y coordinate for starting position of block game piece
+    y: 25,
     x_v: 0, 
     y_v: 0,
     jump: true,
@@ -9,7 +11,6 @@ let player = {
     width: 20
 };
 
-// The status of the arrow keys
 let keys = {
     right: false,
     left: false,
@@ -21,36 +22,44 @@ const gravity = 0.6;
 const friction = 0.7;
 
 // The number of platforms
-let numberOfPlatforms = 10;
+let numberOfPlatforms = 45;
 
-// The platforms
-let platforms = [];
+// Platform array with default starting platform
+let platforms = [
+    {x: 0, y: 200, width: 100, height: 20}
+];
 
-// Function to render the canvas
-function rendercanvas(){
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext("2d");
+ctx.canvas.height = 500;
+ctx.canvas.width = 1000;
+
+function renderCanvas(){
     ctx.fillStyle = "#F0F8FF";
     ctx.fillRect(0, 0, 1000, 1000);
 }
 
-// Function to render the player
-function renderplayer(){
+function renderPlayer(){
     ctx.fillStyle = "#F08080";
-    ctx.fillRect((player.x)-20, (player.y)-20, player.width, player.height);
+    ctx.fillRect((player.x) - 20, (player.y) - 20, player.width, player.height);
 }
 
-// Function to create platforms
-function createplat(){
-    for (let i = 0; i < numberOfPlatforms; i++) {
+function createPlatforms(){
+    for (let i = 1; i < numberOfPlatforms; i++) {
         platforms.push({
-            x: 100 * i,
-            y: 200 + (30 * i),
-            width: 110,
+            x: alternatingPlatforms(i),
+            y: alternatingPlatforms(i),
+            width: 100,
             height: 20
         });
     }
 }
-// Function to render platforms
-function renderplat(){
+
+function alternatingPlatforms(i) {
+    return (Math.random() * 1000) + 1;
+}
+
+function renderPlatforms(){
     ctx.fillStyle = "#45597E";
     platforms.forEach(platform => ctx.fillRect(platform.x, platform.y, platform.width, platform.height));
 }
@@ -59,13 +68,13 @@ function renderplat(){
 function keydown(e) {
     // 37 is the code for the left arrow key
     if (e.keyCode === 37) {
-        keys.left = true;
+        keys.left = true
     }
 
     // 37 is the code for the up arrow key
     if (e.keyCode === 38) {
         if (player.jump === false) {
-            player.y_v = -10;
+            player.y_v = -11;
         }
     }
     // 39 is the code for the right arrow key
@@ -91,7 +100,7 @@ function keyup(e) {
     }
 } 
 
-function loop() {
+function runGame() {
     // If the player is not jumping apply the effect of friction
     if (player.jump === false) {
         player.x_v *= friction;
@@ -104,18 +113,18 @@ function loop() {
 
     // If the left key is pressed increase the relevant horizontal velocity
     if (keys.left) {
-        player.x_v = -2.5;
+        player.x_v = -2;
     }
 
     if (keys.right) {
-        player.x_v = 2.5;
+        player.x_v = 2;
     }
 
     // Updating the y and x coordinates of the player
     player.y += player.y_v;
     player.x += player.x_v;
 
-    // A simple code that checks for collions with the platform
+    // Check for collions with the platform
     let i = -1;
 
     platforms.forEach((platform, index) => {
@@ -131,21 +140,27 @@ function loop() {
     }
 
     // Rendering the canvas, the player and the platforms
-    rendercanvas();
-    renderplayer();
-    renderplat();
+    renderCanvas();
+    renderPlayer();
+    renderPlatforms();
+
+    winGame(player);
 }
 
-canvas = document.getElementById("canvas");
-ctx = canvas.getContext("2d");
-ctx.canvas.height = 500;
-ctx.canvas.width = 1000;
-createplat();
+function winGame(position) {
+    if (position.x > ctx.canvas.width && position.y < ctx.canvas.height) {
+        alert('You won!', location.reload());
+    } else if (position.y > ctx.canvas.height && position.x < ctx.canvas.width) {
+        alert('You lost!', location.reload());
+    }
+}
+
+createPlatforms();
 
 // Adding the event listeners
 document.addEventListener("keydown",keydown);
 document.addEventListener("keyup",keyup);
 
 
-// Run loop() continuously to update the board/game
-setInterval(loop, 22);
+// Run runGame() continuously to update the board/game
+setInterval(runGame, 22);
