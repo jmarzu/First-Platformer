@@ -56,14 +56,12 @@ function createPlatforms(){
 }
 
 function alternatingPlatforms() {
-    // if the platform position for the x axis is > 50 then add 50 so the 
+    // if the platform position for the x axis is > 100 then add 150 so the 
     // player piece can fall to the default position
-    let randomPosition = (Math.random() * 1000) + 1;
+    let randomPosition = Math.floor((Math.random() * 1000) + 1);
 
-    if (randomPosition > 50) {
-        randomPosition + 50; 
-    } else {
-        randomPosition + 1;
+    if (randomPosition < 100) {
+        randomPosition + 150; 
     }
 
     return randomPosition
