@@ -32,7 +32,7 @@ let platforms = [
 
 canvas = document.getElementById("canvas");
 ctx = canvas.getContext("2d");
-ctx.canvas.height = 500;
+ctx.canvas.height = 600;
 ctx.canvas.width = 1000;
 
 function renderCanvas(){
