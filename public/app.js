@@ -1,3 +1,6 @@
+const fs = require('fs');
+const { loadImage, createCanvas } = require('canvas');
+
 // The attributes of the player.
 let player = {
     // x coordinate for starting position of block game piece
@@ -29,10 +32,13 @@ let platforms = [
     {x: 0, y: 200, width: 100, height: 20}
 ];
 
-canvas = document.getElementById("canvas");
-ctx = canvas.getContext("2d");
+const canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
 ctx.canvas.height = 600;
 ctx.canvas.width = 1000;
+
+const playerRunning = loadImage('marioRun.jpg');
+const playerJumping = loadImage('marioFly.jpeg');
 
 function renderCanvas(){
     ctx.fillStyle = "#F0F8FF";
